@@ -68,6 +68,8 @@ resource "google_compute_firewall" "public_restricted_allow_inbound" {
 # ---------------------------------------------------------------------------------------------------------------------
 # private - allow ingress from within this network
 # ---------------------------------------------------------------------------------------------------------------------
+data "google_compute_lb_ip_ranges" "ranges" {
+}
 
 resource "google_compute_firewall" "private_allow_all_network_inbound" {
   name = "${var.name_prefix}-private-allow-ingress"
@@ -83,6 +85,7 @@ resource "google_compute_firewall" "private_allow_all_network_inbound" {
     data.google_compute_subnetwork.public_subnetwork.secondary_ip_range[0].ip_cidr_range,
     data.google_compute_subnetwork.private_subnetwork.ip_cidr_range,
     data.google_compute_subnetwork.private_subnetwork.secondary_ip_range[0].ip_cidr_range,
+    data.google_compute_lb_ip_ranges.ranges.network,
   ]
 
   priority = "1000"
