@@ -85,7 +85,7 @@ resource "google_compute_firewall" "private_allow_all_network_inbound" {
     data.google_compute_subnetwork.public_subnetwork.secondary_ip_range[0].ip_cidr_range,
     data.google_compute_subnetwork.private_subnetwork.ip_cidr_range,
     data.google_compute_subnetwork.private_subnetwork.secondary_ip_range[0].ip_cidr_range,
-  ], data.google_compute_lb_ip_ranges.ranges.network)
+  ], ["130.211.0.0/22", "35.191.0.0/16"])
 
   priority = "1000"
 
